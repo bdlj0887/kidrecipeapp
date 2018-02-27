@@ -1,17 +1,17 @@
 extends layout.pug
 
+block nav
+    a(class="brand-logo" href="#") Recipe App
+    ul.right#nav-mobile
+        li: a(href="/register") Register
+        li: a(href="/login") Login
 block content
-    .nav-main
-        h2 Recipe Box App
-        .nav-right
-                ul
-                    li: a(href='/register') Register
-                    li: a(href='/login') Login
-    header
+    header.blue-grey
         .header-text
             h3 Pin your recipes and more!
 
         a(href="/register"): button.btn Register
+
 
 
 

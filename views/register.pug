@@ -1,18 +1,22 @@
 extends layout.pug
+block nav
+    a(class="brand-logo" href="#") Recipe App
 block content
-    .form-container
-        if error
-            h5 #{error}
-        form(method="POST" action="/register")
-            label(for="email") E-Mail Address
-            input(type="email" name="email" id="email" placeholder="E-Mail Address")
-            br
-            label(for="username") Username
-            input(type="text" id="username" name="username" placeholder="Username")
-            br
-            label(for="password") Password
-            input(type="password" id="password" name="password" placeholder="Enter Password")
-            br
-            label(for="verifyPassword") Verify Password
-            input(type="password" id="verifyPassword" name="verifyPassword" placeholder="Re-enter Password")
-            button.btn(type="submit") Submit
+    .container
+        .row
+            .col.s12.l6.offset-l3
+                if error
+                    h5 #{error}
+                form(method="POST" action="/register")
+                    label(for="email") E-Mail Address
+                    input(type="email" name="email" id="email" placeholder="E-Mail Address")
+                    br
+                    label(for="username") Username
+                    input(type="text" id="username" name="username" placeholder="Username")
+                    br
+                    label(for="password") Password
+                    input(type="password" id="password" name="password" placeholder="Enter Password")
+                    br
+                    label(for="verifyPassword") Verify Password
+                    input(type="password" id="verifyPassword" name="verifyPassword" placeholder="Re-enter Password")
+                    button(class="btn waves-effect waves-light blue" type="submit") Submit<i class="material-icons right">send</i>

@@ -1,0 +1,17 @@
+extends layout.pug
+
+block nav
+    ul
+        li: a(class="btn" href="/recipes/new") Create
+        li: a(class="btn" href="/recipes/browse") Browse
+    .right
+        form(action="/logout" method="POST")
+            button(class="btn waves-effect waves-light blue" type="submit") Logout
+block content
+    if data
+        h2 Stuff
+    else
+        h2 Looks like you have no recipes added!
+        a(href="/recipes/new"): button(class="btn blue") Create
+        span or
+        a(href="/recipes/browse"): button(class="btn blue") Browse

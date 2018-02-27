@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const models = require('../config/models');
 const bcrypt = require('bcryptjs');
-const auth = require('../config/auth');
-
+const auth = require('../middleware/auth');
+const validators = require('../middleware/validators');
 let router = express.Router();
 
 
@@ -15,9 +15,12 @@ router.get("/login", (req, res) => {
 
 
 router.post('/login', (req, res) => {
-    console.log(req.body.email);
-    models.User.findOne({ email: req.body.email }, (err, user) => {
-        if(!user || bcrypt.compareSync(req.body.password, user.password)){
+    console.log(req.body.username);
+    console.log(req.body);
+    models.User.findOne({ username: req.body.username }, (err, user) => {
+
+        console.log(bcrypt.compareSync(req.body.password, user.password));
+        if(!user || !bcrypt.compareSync(req.body.password, user.password)){
             return res.render('login', {
                 error: 'Incorrect email or password.',
                 title: 'Login',
@@ -28,7 +31,7 @@ router.post('/login', (req, res) => {
 
         //creates session, add jwt?
         req.session.userId = user._id;
-        res.redirect('/dashboard');
+        res.redirect('/');
     })
 })
 
@@ -39,11 +42,9 @@ router.get('/register', (req, res)=>{
     res.render('register', { title: 'Registration'});
 });
 
-router.post('/register', registerValidate, (req, res)=>{
-    if(req.error){
-        res.render('register', { title: 'Registration' })
-    }
-    let hash = bcrypt.hashSync(req.body.password, 12);
+router.post('/register', (req, res)=>{
+
+    let hash = bcrypt.hashSync(req.body.password, 8);
     req.body.password = hash;
 
     //TODO: fix this
@@ -66,7 +67,7 @@ router.post('/register', registerValidate, (req, res)=>{
         }
         //create session, redirect to dash
         req.session.userId = user._id;
-        res.redirect('/dashboard');
+        res.redirect('/');
 
     })
 });

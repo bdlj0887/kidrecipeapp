@@ -1,0 +1,14 @@
+extends layout.pug
+
+block nav
+    a(class="brand-logo" href="#") Recipe App
+block content
+    .container
+        .row
+            .col.s12.l6.offset-l3
+                form(method="POST" action="/login")
+                    label(for="username") Username
+                    input(type="text" id="username" name="username" placeholder="Username")
+                    label(for="password") Password
+                    input(type="password" id="password" name="password" placeholder="Enter Password")
+                    button(class="btn waves-effect waves-light blue" type="submit") Submit<i class="material-icons right">send</i>

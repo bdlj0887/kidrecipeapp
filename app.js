@@ -12,7 +12,7 @@ const favicon = require('express-favicon');
 let app = express();
 
 //app modules
-const auth = require('./config/auth');
+const auth = require('./middleware/auth');
 const models = require('./config/models');
 const authRoutes = require('./controllers/auth');
 const mainRoutes = require('./controllers/main');
