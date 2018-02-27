@@ -2,8 +2,8 @@ extends layout.pug
 
 block nav
     ul
-        li: a(class="btn" href="/recipes/new") Create
-        li: a(class="btn" href="/recipes/browse") Browse
+        li: a(href="/recipes/new") Add Recipe
+        li: a(href="/") Dashboard
     .right
         form(action="/logout" method="POST")
             button(class="btn waves-effect waves-light blue" type="submit") Logout
@@ -20,12 +20,6 @@ block content
                                 span.card-title #{recipe.title}
                             .card-action
                                 a(href=recipe.url) Recipe Link
-
-
-
-
     else
-        h2 Looks like you have no recipes added!
-        a(href="/recipes/new"): button(class="btn blue") Create
-        span or
-        a(href="/recipes/browse"): button(class="btn blue") Browse
+        h2 Something went wrong!
+        a(class="button" href="/") Return

@@ -1,0 +1,21 @@
+extends layout.pug
+
+block nav
+    ul
+        li: a(href="/recipes/new") Dashboard
+        li: a(href="/recipes/browse") Browse
+    .right
+        form(action="/logout" method="POST")
+            button(class="btn waves-effect waves-light blue" type="submit") Logout
+block content
+    container
+        .row
+            .col.s12.l6.offset-l3
+                form(method="POST" action="/recipes/new")
+                    input(type="text" id="url" name="url" placeholder="Enter Recipe URL")
+                    label(for="url") URL
+                    input(type="text" id="title" name="title" placeholder="Enter Title for Recipe")
+                    label(for="title") Title
+                    input(type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL")
+                    label(for="imageUrl")
+                    button(class="btn waves-effect waves-light blue" type="submit") Submit<i class="material-icons right">send</i>

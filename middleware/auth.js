@@ -25,7 +25,7 @@ const loadUserFromSession = (req, res, next) => {
 
     });
 
-}
+};
 
 const loginRequired = (req, res, next) => {
     if (req.user) {
