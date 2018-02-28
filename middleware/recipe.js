@@ -1,25 +1,28 @@
 const validator = require('validator');
 const models = require('../config/models');
+const imageScrape = require('../helpers/image-scrape');
 
 
 
 //TODO: This is a mess atm, clean it up
 const newRecipe = (req, res, next) => {
+    imageScrape.findImage(req.body.url, (url)=>{
+        let newRecipe = new models.Recipe({
+            title: req.body.title,
+            url: req.body.url,
+            image: url,
+            hasPinned: req.user._id
+        });
+        newRecipe.save((err, recipe)=>{
+            if(err){
+                console.log(err);
+                return next();
+            }
+            console.log(recipe);
+            return next();
+        });
+    })
 
-    let newRecipe = new models.Recipe({
-        title: req.body.title,
-        url: req.body.url,
-        image: req.body.imageUrl,
-        hasPinned: req.user._id
-    });
-    newRecipe.save((err, recipe)=>{
-       if(err){
-           console.log(err);
-           return next();
-       }
-       console.log(recipe);
-       return next();
-       });
 };
 
 const findRecipes = (req, res, next) => {

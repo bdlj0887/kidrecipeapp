@@ -12,6 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
     "client-sessions": "^0.8.0",
     "csurf": "^1.9.0",
     "dotenv": "^5.0.0",
@@ -20,6 +21,7 @@
     "mongoose": "^5.0.3",
     "mongoose-auto-increment": "^5.0.1",
     "pug": "^2.0.0-rc.4",
+    "request": "^2.83.0",
     "validator": "^9.4.0"
   }
 }
