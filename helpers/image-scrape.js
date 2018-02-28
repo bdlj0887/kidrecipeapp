@@ -1,7 +1,8 @@
 const cheerio = require('cheerio');
 const request = require('request');
-//TODO: convert this to promises???
-//TODO: This only works on wordpress sites atm, needs to be improved.
+const cloudinary = require('cloudinary')
+//TODO: convert this to middleware?
+//TODO: This only works on wordpress sites atm, needs to be improved with other common sites and CMS, along with a fallback
 const findImage = (url, cb)=>{
     //requests the url
     request(url, (error, response, body)=>{
@@ -11,8 +12,10 @@ const findImage = (url, cb)=>{
         let image = $('img.wp-post-image');
         //grabs the image from the source
         let imageUrl = image[0].attribs.src;
-        //TODO: this should by posted to imgur or another host
-        cb(imageUrl);
+        //Uploads to CDN, passes cb in
+        cloudinary.uploader.upload(imageUrl, (result)=>{
+            cb(result);
+        });
     });
 };
 

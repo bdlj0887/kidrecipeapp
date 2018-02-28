@@ -6,19 +6,20 @@ const imageScrape = require('../helpers/image-scrape');
 
 //TODO: This is a mess atm, clean it up
 const newRecipe = (req, res, next) => {
-    imageScrape.findImage(req.body.url, (url)=>{
+    //Scrapes image, uploads to CDN
+    imageScrape.findImage(req.body.url, (result)=>{
         let newRecipe = new models.Recipe({
             title: req.body.title,
             url: req.body.url,
-            image: url,
-            hasPinned: req.user._id
+            image: result.url,
+            hasPinned: req.user._id,
+            description: req.body.description
         });
         newRecipe.save((err, recipe)=>{
             if(err){
                 console.log(err);
                 return next();
             }
-            console.log(recipe);
             return next();
         });
     })
@@ -34,8 +35,7 @@ const findRecipes = (req, res, next) => {
 
         if(err){
             console.log(err);
-            return res.error('500');
-            return next();
+            return res.error(500);
         } else if(!recipes){
             return next();
         }
@@ -62,7 +62,6 @@ const listRecipes = (req, res, next)=>{
 
 const pinRecipe = (req, res, next)=>{
 
-    console.log(req.user._id);
     models.Recipe.findByIdAndUpdate(req.params.id, {$push: {hasPinned: req.user._id}}, (err, recipe)=>{
         console.log(recipe);
         if(!err){

@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const sessions = require('client-sessions');
 const autoIncrement = require('mongoose-auto-increment');
 const favicon = require('express-favicon');
+const cloudinary = require('cloudinary');
 let app = express();
 
 //app modules
@@ -21,6 +22,7 @@ const mainRoutes = require('./controllers/main');
 //db connection
 mongoose.connect(process.env.MLAB)
     .then(console.log('App Connected'));
+
 
 
 

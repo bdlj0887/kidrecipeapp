@@ -23,8 +23,10 @@ router.post('/recipes/new', auth.loginRequired, recipe.newRecipe,  (req, res) =>
 
 router.get('/recipes/browse', auth.loginRequired, recipe.listRecipes, (req, res)=>{
    if(!req.error){
+       console.log(req.query);
        return res.render('recipes', { title: 'Recipe Browser', recipes: req.recipes });
    }
+
    res.redirect('/')
 
 });

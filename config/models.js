@@ -11,6 +11,7 @@ let recipeSchema = new mongoose.Schema({
     title: String,
     image: String,
     url: String,
+    description: String,
     hasPinned: [{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}]
     //TODO: Implement crawling and parsing - this is the primary project
 
