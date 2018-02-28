@@ -77,6 +77,7 @@ router.post('/register', (req, res)=>{
 router.post('/logout', (req, res) => {
     if(req.session) {
         req.session.reset();
+        return res.redirect('/')
     }
     res.redirect('/');
 });

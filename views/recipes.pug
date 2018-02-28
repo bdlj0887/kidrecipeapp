@@ -13,13 +13,15 @@ block content
             .row
 
                 each recipe in recipes
-                    .col.s12.m6
+                    .col.s12.m4
                         .card
                             .card-image
                                 img(src=recipe.image)
                                 span.card-title #{recipe.title}
                             .card-action
+                                -var link = '/recipe/pin/' + recipe._id
                                 a(href=recipe.url) Recipe Link
+                                a(href=link) Pin This!
     else
         h2 Something went wrong!
         a(class="button" href="/") Return

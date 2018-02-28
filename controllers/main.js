@@ -5,11 +5,11 @@ const locals = require('../config/locals');
 let router = express.Router();
 
 router.get('/', recipe.findRecipes, (req, res)=>{
-    if(!req.user){
+    if(req.user){
+        return res.render('dashboard', {title: 'Recipe App', recipes: req.recipes});
+    } else {
         return res.render('index', {title: 'Recipe App'});
     }
-
-    res.render('dashboard', {title: 'Recipe App', recipes: req.recipes});
 
 });
 
@@ -23,10 +23,13 @@ router.post('/recipes/new', auth.loginRequired, recipe.newRecipe,  (req, res) =>
 
 router.get('/recipes/browse', auth.loginRequired, recipe.listRecipes, (req, res)=>{
    if(!req.error){
-       res.render('recipes', { title: 'Recipe Browser', recipes: req.recipes });
+       return res.render('recipes', { title: 'Recipe Browser', recipes: req.recipes });
    }
    res.redirect('/')
 
+});
+router.get('/recipe/pin/:id', auth.loginRequired, recipe.pinRecipe, (req, res)=> {
+    res.redirect('/');
 });
 
 module.exports = router;
