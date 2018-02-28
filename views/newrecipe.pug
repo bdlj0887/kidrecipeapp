@@ -12,10 +12,16 @@ block content
         .row
             .col.s12.l6.offset-l3
                 form(method="POST" action="/recipes/new")
-                    input(type="text" id="url" name="url" placeholder="Enter Recipe URL")
-                    label(for="url") URL
-                    input(type="text" id="title" name="title" placeholder="Enter Title for Recipe")
-                    label(for="title") Title
-                    input(type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL")
-                    label(for="imageUrl")
+                    .input-field
+                        input(type="text" id="url" name="url" placeholder="Enter Recipe URL")
+                        label(for="url") URL
+                    .input-field
+                        input(type="text" id="title" name="title" placeholder="Enter Title for Recipe")
+                        label(for="title") Title
+                    .input-field
+                        input(type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL")
+                        label(for="imageUrl") Image URL
+                    .input-field
+                        input(type="text" id="description" name="description" placeholder="Enter a brief description")
+                        label(for="description") Description
                     button(class="btn waves-effect waves-light blue" type="submit") Submit<i class="material-icons right">send</i>

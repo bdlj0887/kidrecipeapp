@@ -13,13 +13,13 @@ block content
             .row
 
                 each recipe in recipes
-                    .col.s12.m6
+                    .col.s12.m4
                         .card
                             .card-image
                                 img(src=recipe.image)
                                 span.card-title #{recipe.title}
                             .card-action
-                                a(href=recipe.url) Recipe Link
+                                a(href=recipe.url class="grey-text text-darken-4") Recipe Link
 
 
 
