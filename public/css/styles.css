@@ -18,7 +18,10 @@ header{
 .img {
     max-height: 500px;
 }
-.card span{
+.card span.card-title{
     background-color: rgba(14, 14, 14, 0.5);
     width: 100%;
+}
+.card span.badge {
+
 }

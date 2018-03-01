@@ -14,14 +14,15 @@ block content
 
                 each recipe in recipes
                     .col.s12.m4
-                        .card.small
+                        .card
                             .card-image
                                 img(src=recipe.image)
                                 span.card-title #{recipe.title}
                             .card-action
                                 -var link = '/recipe/pin/' + recipe._id
                                 a(href=recipe.url) Recipe Link
-                                a(href=link) Pin This!
+                                a(href=link): span.new.badge(data-badge-caption='') #{recipe.pinNumber} <i class="material-icons right">add</i>
+
     else
         h2 Something went wrong!
         a(class="button" href="/") Return

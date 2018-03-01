@@ -7,13 +7,18 @@ const imageScrape = require('../helpers/image-scrape');
 //TODO: This is a mess atm, clean it up
 const newRecipe = (req, res, next) => {
     //Scrapes image, uploads to CDN
-    imageScrape.findImage(req.body.url, (result)=>{
+    imageScrape.findImage(req.body.url, (result, tags)=>{
+        if(tags){
+            req.body.tags = tags;
+        }
         let newRecipe = new models.Recipe({
             title: req.body.title,
             url: req.body.url,
             image: result.url,
             hasPinned: req.user._id,
-            description: req.body.description
+            tags: req.body.tags,
+            description: req.body.description,
+            pinNumber: 1
         });
         newRecipe.save((err, recipe)=>{
             if(err){
@@ -25,13 +30,13 @@ const newRecipe = (req, res, next) => {
     })
 
 };
-
+//TODO: change this up some to sort by date pinned
 const findRecipes = (req, res, next) => {
     if(req.user == null){
         return next();
     }
 
-    models.Recipe.find({ hasPinned: req.user._id  }).limit(10).exec((err, recipes)=>{
+    models.Recipe.find({ hasPinned: req.user._id  }).sort({date: 'desc'}).limit(20).exec((err, recipes)=>{
 
         if(err){
             console.log(err);
@@ -48,7 +53,7 @@ const findRecipes = (req, res, next) => {
 };
 
 const listRecipes = (req, res, next)=>{
-    models.Recipe.find({hasPinned: {$ne: req.user._id}}).limit(10).exec((err, recipes)=> {
+    models.Recipe.find({hasPinned: {$ne: req.user._id}}).limit(20).exec((err, recipes)=> {
         if (!err) {
             req.recipes = recipes;
             return next();
@@ -62,12 +67,18 @@ const listRecipes = (req, res, next)=>{
 
 const pinRecipe = (req, res, next)=>{
 
-    models.Recipe.findByIdAndUpdate(req.params.id, {$push: {hasPinned: req.user._id}}, (err, recipe)=>{
+    models.Recipe.findByIdAndUpdate(req.params.id, {"$push": {"hasPinned": req.user._id}, "$inc": {"pinNumber": 1}}, (err, recipe)=>{
         console.log(recipe);
         if(!err){
-            return next();
+            models.User.findByIdAndUpdate(req.user._id, {$push: {recipes: {recipe: req.params.id, date: Date.now()}}}, (err, recipe) => {
+                if(!err){
+                    return next();
+                }
+            });
+
         }
     });
+
     return next();
 };
 module.exports = {

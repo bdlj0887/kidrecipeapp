@@ -4,7 +4,9 @@ let userSchema = new mongoose.Schema({
     email: {type: String, unique: true},
     password: String,
     username: String,
-    recipes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Recipes'}]
+    recipes: [
+        {recipe: {type: mongoose.Schema.Types.ObjectId, ref: 'Recipes'},
+        date: {type: Date, default: Date.now}}]
 });
 
 let recipeSchema = new mongoose.Schema({
@@ -12,7 +14,10 @@ let recipeSchema = new mongoose.Schema({
     image: String,
     url: String,
     description: String,
-    hasPinned: [{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}]
+    tags: [{ type: String }],
+    date: { type: Date, default: Date.now },
+    hasPinned: [{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}],
+    pinNumber: Number
     //TODO: Implement crawling and parsing - this is the primary project
 
 });
